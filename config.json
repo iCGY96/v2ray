@@ -1,39 +1,56 @@
 {
-    "log": {
-        "loglevel": "warning"
-    },
-    "routing": {
-        "domainStrategy": "AsIs",
-        "rules": [
-            {
-                "ip": [
-                    "geoip:private"
-                ],
-                "outboundTag": "blocked",
-                "type": "field"
-            }
+  "policy": null,
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "tag": null,
+      "port": 443,
+      "listen": null,
+      "protocol": "vmess",
+      "sniffing": null,
+      "settings": {
+        "auth": null,
+        "udp": false,
+        "ip": null,
+        "address": null,
+        "clients": [
+          {
+            "id": "26209046-43f1-48dd-97ff-0f905963f437",
+            "alterId": 64,
+            "email": "t@t.tt",
+            "security": null
+          }
         ]
-    },
-    "inbounds": [
-        {
-            "port": 1234,
-            "protocol": "vmess",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "26209046-43f1-48dd-97ff-0f905963f437",
-                    }
-                ]
-            }
-        }
-    ],
-    "outbounds": [
-        {
-            "protocol": "freedom"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": null
         },
-        {
-            "protocol": "blackhole",
-            "tag": "blocked"
-        }
-    ]
+        "tcpSettings": null,
+        "kcpSettings": null,
+        "wsSettings": {
+          "connectionReuse": true,
+          "path": "/ray",
+          "headers": null
+        },
+        "httpSettings": null,
+        "quicSettings": null
+      }
+    }
+  ],
+  "outbounds": null,
+  "stats": null,
+  "api": null,
+  "dns": null,
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": []
+  }
 }
