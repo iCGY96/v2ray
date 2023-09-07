@@ -1,41 +1,74 @@
 {
-  "log" : {
-    "loglevel": "warning"
-  },
-  "inbounds": [{
-    "port": 443,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
-        {
-          "id": "26209046-43f1-48dd-97ff-0f905963f437",
-          "level": 1,
-          "alterId": 64
-        }
-      ]
+    "log": {
+        "loglevel": "warning"
     },
-    "streamSettings" : {
-      "network": "ws",
-      "wsSettings": {
-        "path": "/ray"
-      }
-    }
-  }],
-  "outbounds": [{
-    "protocol": "freedom",
-    "settings": {}
-  },{
-    "protocol": "blackhole",
-    "settings": {},
-    "tag": "blocked"
-  }],
-  "routing": {
-    "rules": [
-      {
-        "type": "field",
-        "ip": ["geoip:private"],
-        "outboundTag": "blocked"
-      }
+    "inbounds": [
+        {
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "7eef3fc4-0fd1-4bb4-b23b-8d875b8e3af1",
+                        "level": 0,
+                        "email": "love@v2fly.org"
+                    }
+                ],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": 80
+                    },
+                    {
+                        "path": "/home/ubuntu/websocket",
+                        "dest": 1234,
+                        "xver": 1
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls",
+                "tlsSettings": {
+                    "alpn": [
+                        "http/1.1"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/home/ubuntu/server.crt",
+                            "keyFile": "/home/ubuntu/server.key"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "port": 1234,
+            "listen": "127.0.0.1",
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "7eef3fc4-0fd1-4bb4-b23b-8d875b8e3af1",
+                        "level": 0,
+                        "email": "love@v2fly.org"
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "acceptProxyProtocol": true,
+                    "path": "/home/ubuntu/websocket"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom"
+        }
     ]
-  }
 }
